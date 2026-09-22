@@ -34,7 +34,7 @@ class ConversationErrorBoundary extends Component {
   render() {
     if (this.state.error) {
       return (
-        <div className="flex h-full w-[68%] items-center justify-center border-l-2 border-slate-200 bg-slate-100 p-6">
+          <div className="flex h-full w-full items-center justify-center bg-slate-100 p-6 lg:w-[68%] lg:border-l-2 lg:border-slate-200">
           <p className="max-w-md rounded-2xl bg-red-50 px-5 py-4 text-center text-sm text-red-700 shadow-sm">
             Could not display this conversation: {this.state.error.message || "Unknown error"}
           </p>
@@ -207,37 +207,37 @@ function MessagesAreaContent() {
   };
 
   return (
-    <div className="flex h-full min-h-0 w-[68%] flex-col border-l-2 border-slate-200 bg-slate-100">
+    <div className={`h-full min-h-0 w-full flex-col bg-slate-100 lg:w-[68%] lg:border-l-2 lg:border-slate-200 ${selecteduser ? "flex" : "hidden lg:flex"}`}>
       {selecteduser ? (
         <>
-          <header className="flex h-[100px] shrink-0 items-center rounded-b-[30px] bg-teal-800 px-3 shadow-lg shadow-gray-400">
+          <header className="flex h-[76px] shrink-0 items-center rounded-b-[24px] bg-teal-800 px-2 shadow-lg shadow-gray-400 sm:h-[100px] sm:rounded-b-[30px] sm:px-3">
             <button
               type="button"
               aria-label="Close conversation"
               onClick={closeConversation}
-              className="rounded-full p-2 text-gray-200 hover:bg-white/10"
+              className="rounded-full p-2 text-gray-200 hover:bg-white/10 lg:hidden"
             >
               <IoArrowBackSharp className="size-6" />
             </button>
             <img
               src={selecteduser.image || dp}
               alt={`${selecteduser.name}'s profile`}
-              className="ml-2 h-10 w-10 rounded-full object-cover shadow-lg shadow-gray-500"
+              className="ml-1 h-10 w-10 shrink-0 rounded-full object-cover shadow-lg shadow-gray-500 sm:ml-2"
             />
-            <div className="min-w-0 px-3">
+            <div className="min-w-0 px-2 sm:px-3">
               <h2 className="truncate text-base font-semibold text-white">{selecteduser.name}</h2>
               <p className="flex items-center gap-1 text-xs text-gray-200">
                 <span className={`h-2 w-2 rounded-full ${isSelectedUserOnline ? "bg-green-400" : "bg-gray-400"}`} />
                 {isSelectedUserOnline ? "Online" : "Offline"}
               </p>
             </div>
-            <div className="ml-auto flex items-center gap-1">
-              <button type="button" onClick={() => startCall(selecteduser, "voice")} aria-label="Start voice call" className="rounded-full p-3 text-white hover:bg-white/10" title="Voice call"><IoCall className="size-5" /></button>
-              <button type="button" onClick={() => startCall(selecteduser, "video")} aria-label="Start video call" className="rounded-full p-3 text-white hover:bg-white/10" title="Video call"><IoVideocam className="size-6" /></button>
+            <div className="ml-auto flex shrink-0 items-center gap-0 sm:gap-1">
+              <button type="button" onClick={() => startCall(selecteduser, "voice")} aria-label="Start voice call" className="rounded-full p-2.5 text-white hover:bg-white/10 sm:p-3" title="Voice call"><IoCall className="size-5" /></button>
+              <button type="button" onClick={() => startCall(selecteduser, "video")} aria-label="Start video call" className="rounded-full p-2.5 text-white hover:bg-white/10 sm:p-3" title="Video call"><IoVideocam className="size-5 sm:size-6" /></button>
             </div>
           </header>
 
-          <main className="min-h-0 flex-1 overflow-y-auto bg-slate-100 p-4">
+          <main className="min-h-0 flex-1 overflow-y-auto bg-slate-100 p-3 sm:p-4">
             {loading ? (
               <p className="mt-10 text-center text-sm text-gray-500">Loading conversation…</p>
             ) : error && !messages.length ? (
@@ -247,7 +247,7 @@ function MessagesAreaContent() {
                 const isMine = String(message.sender?._id || message.sender) === String(userData?._id);
                 return (
                   <div key={message._id || `${message.createdAt || "message"}-${index}`} className={`group mb-3 flex ${isMine ? "justify-end" : "justify-start"}`}>
-                    <div className={`relative max-w-[82%] rounded-2xl px-4 py-2 shadow-sm ${isMine ? "rounded-br-sm bg-cyan-600 text-white" : "rounded-bl-sm border border-slate-200 bg-white text-slate-900"}`}>
+                    <div className={`relative max-w-[88%] rounded-2xl px-3 py-2 shadow-sm sm:max-w-[82%] sm:px-4 ${isMine ? "rounded-br-sm bg-cyan-600 text-white" : "rounded-bl-sm border border-slate-200 bg-white text-slate-900"}`}>
                       {message.media?.url &&
                         (message.media.type === "video" ? (
                           <video controls className="mb-1 max-h-72 max-w-full rounded-md">
@@ -280,7 +280,7 @@ function MessagesAreaContent() {
             <div ref={messageEnd} />
           </main>
 
-          <form onSubmit={sendMessage} className="shrink-0 border-t border-slate-200 bg-white p-3">
+          <form onSubmit={sendMessage} className="shrink-0 border-t border-slate-200 bg-white p-2 sm:p-3">
             {error && <p className="mb-2 rounded bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
             {attachment && (
               <div className="mb-2 flex items-center gap-2 rounded-full bg-white px-4 py-2 shadow-sm">
@@ -289,16 +289,16 @@ function MessagesAreaContent() {
                 <button type="button" onClick={removeAttachment} aria-label="Remove attachment" className="rounded-full p-1 text-gray-500 hover:bg-gray-100"><IoClose className="size-5" /></button>
               </div>
             )}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <input ref={fileInput} type="file" className="hidden" onChange={chooseAttachment} />
-              <button type="button" aria-label="Attach image or video" onClick={() => openFilePicker("image/*,video/*")} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-teal-800 shadow-sm transition hover:bg-teal-50" title="Photo or video">
+              <button type="button" aria-label="Attach image or video" onClick={() => openFilePicker("image/*,video/*")} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-teal-800 shadow-sm transition hover:bg-teal-50 sm:h-11 sm:w-11" title="Photo or video">
                 <IoImageOutline className="size-5" />
               </button>
-              <button type="button" aria-label="Attach document" onClick={() => openFilePicker(".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt")} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-teal-800 shadow-sm transition hover:bg-teal-50" title="Document">
+              <button type="button" aria-label="Attach document" onClick={() => openFilePicker(".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt")} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-teal-800 shadow-sm transition hover:bg-teal-50 sm:h-11 sm:w-11" title="Document">
                 <IoDocumentTextOutline className="size-5" />
               </button>
               <input value={text} onChange={(event) => setText(event.target.value)} placeholder="Write a message" className="min-w-0 flex-1 rounded-full bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-cyan-500" />
-              <button type="submit" aria-label="Send message" disabled={sending || (!text.trim() && !attachment)} className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-white shadow-lg shadow-cyan-700/20 transition hover:scale-105 hover:bg-cyan-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"><IoSend className="ml-0.5 size-5" /></button>
+              <button type="submit" aria-label="Send message" disabled={sending || (!text.trim() && !attachment)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-white shadow-lg shadow-cyan-700/20 transition hover:scale-105 hover:bg-cyan-600 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 sm:h-12 sm:w-12"><IoSend className="ml-0.5 size-5" /></button>
             </div>
           </form>
         </>

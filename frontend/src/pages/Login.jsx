@@ -42,9 +42,9 @@ export default function Login() {
   };
   return (
     <div className="flex min-h-screen w-full items-center justify-center bg-slate-200 p-4 py-6">
-      <div className="flex min-h-[600px] w-full max-w-[500px] flex-col gap-[30px] rounded-lg bg-white shadow-lg shadow-gray-400">
-        <div className="w-full h-[200px] bg-cyan-500 rounded-b-[30%] shadow-lg  shadow-gray-400 flex items-center justify-center">
-          <h1 className="font-bold text-[30px]">
+      <div className="flex w-full max-w-[500px] flex-col gap-7 overflow-hidden rounded-lg bg-white py-6 shadow-lg shadow-gray-400 sm:min-h-[600px] sm:gap-[30px] sm:py-0">
+        <div className="flex h-36 w-full items-center justify-center rounded-b-[30%] bg-cyan-500 shadow-lg shadow-gray-400 sm:h-[200px]">
+          <h1 className="px-4 text-center text-2xl font-bold sm:text-[30px]">
             Login to <span className="text-white">Chatly</span>
           </h1>
         </div>

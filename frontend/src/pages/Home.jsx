@@ -5,7 +5,7 @@ import MessagesArea from "../components/MessagesArea";
 
 export default function Home() {
   return (
-    <div className="flex h-screen w-full flex-row overflow-hidden">
+    <div className="flex h-[100dvh] w-full overflow-hidden bg-slate-100">
      <SideBar/>
      <MessagesArea/>
     </div>

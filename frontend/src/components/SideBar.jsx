@@ -42,21 +42,21 @@ export default function SideBar() {
   };
 
   return (
-    <div className="relative h-full w-[32%] shrink-0 bg-slate-100">
-      <div className="w-full h-[250px] bg-cyan-500 rounded-b-[30%] shadow-lg shadow-gray-400 flex flex-col justify-center">
+    <aside className={`relative h-full w-full shrink-0 bg-slate-100 lg:w-[32%] ${selecteduser ? "hidden lg:block" : "block"}`}>
+      <div className="flex h-52 w-full flex-col justify-center rounded-b-[30%] bg-cyan-500 shadow-lg shadow-gray-400 sm:h-[250px]">
         <div>
-          <h1 className="text-[25px] px-8 text-white">Femo</h1>
+          <h1 className="px-5 text-xl text-white sm:px-8 sm:text-[25px]">Femo</h1>
         </div>
 
-        <div className="w-full flex justify-between items-center">
-          <h1 className="text-[25px] px-8 font-bold text-gray-950">
+        <div className="flex w-full items-center justify-between">
+          <h1 className="truncate px-5 text-xl font-bold text-gray-950 sm:px-8 sm:text-[25px]">
             Hy , {userData?.name}
           </h1>
           <button
             type="button"
             aria-label="Open profile"
             onClick={() => navigate("/Profile")}
-            className="h-[60px] w-[60px] overflow-hidden rounded-full"
+            className="mr-4 h-12 w-12 shrink-0 overflow-hidden rounded-full sm:mr-0 sm:h-[60px] sm:w-[60px]"
           >
             <img
               src={userData?.image || dp}
@@ -70,7 +70,7 @@ export default function SideBar() {
             <button
               type="button"
               aria-label="Open search"
-              className="w-[60px] h-[60px] cursor-pointer bg-gray-100 rounded-full flex justify-center items-center"
+              className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-gray-100 sm:h-[60px] sm:w-[60px]"
               onClick={() => setsearch(true)}
             >
               <CiSearch className="w-[25px] h-[25px]" />
@@ -78,7 +78,7 @@ export default function SideBar() {
           )}
 
           {search && (
-            <div className="w-full h-[60px] bg-gray-100 rounded-full shadow-lg shadow-gray-400 flex items-center px-5">
+            <div className="flex h-12 w-full items-center rounded-full bg-gray-100 px-5 shadow-lg shadow-gray-400 sm:h-[60px]">
               <CiSearch className="w-[25px] h-[25px] shrink-0" />
               <input
                 autoFocus
@@ -93,7 +93,7 @@ export default function SideBar() {
         </div>
       </div>
 
-      <div className="h-[calc(100%-250px)] overflow-y-auto px-4 py-5">
+      <div className="h-[calc(100%-208px)] overflow-y-auto px-3 py-5 sm:h-[calc(100%-250px)] sm:px-4">
         {visibleUsers.map((user) => (
           <button
             type="button"
@@ -142,6 +142,6 @@ export default function SideBar() {
       >
         <IoLogOutOutline className="h-6 w-6" />
       </button>
-    </div>
+    </aside>
   );
 }
